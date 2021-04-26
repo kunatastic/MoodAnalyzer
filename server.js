@@ -32,7 +32,7 @@ conn.on("disconnected", function () {
 conn.on("error", console.error.bind(console, "connection error:"));
 
 // Middlewares
-app.use(helmet());
+// app.use(helmet());
 app.use(morgan("common"));
 app.use(cors());
 app.use("/", defaultRoutes);
