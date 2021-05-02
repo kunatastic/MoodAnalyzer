@@ -10,5 +10,8 @@ Router.get("/face", (req, res) => {
 Router.get("/text", (req, res) => {
   res.render("Text.html");
 });
+Router.get("/analysis", (req, res) => {
+  res.render("Analysis.html");
+});
 
 module.exports = Router;

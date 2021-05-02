@@ -5,8 +5,23 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Facial Analysis | Mood Analyzer</title>
+    <link rel="stylesheet" href="/css/face.css" />
   </head>
   <body>
-    This is a facial Analyzer
+    <nav>Facial Sentiments</nav>
+
+    <div class="container">
+      kunal
+      <video id="video" height="100%" width="100%" autoplay muted></video>
+    </div>
+
+    <div class="result-container">
+      <div id="emotion">Emotion</div>
+      <div id="gender">Gender</div>
+      <div id="age">Age</div>
+      <button onclick="stop()">STOP</button>
+    </div>
+    <!-- <script src="/js/face-api.min.js"></script> -->
+    <!-- <script src="/js/face-main.js"></script> -->
   </body>
 </html>
