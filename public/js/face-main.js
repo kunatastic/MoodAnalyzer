@@ -24,6 +24,7 @@ function startVideo() {
 }
 
 var data = {
+  user_id: 1234567890,
   expression: {
     angry: 0,
     disgusted: 0,
