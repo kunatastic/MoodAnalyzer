@@ -7,6 +7,9 @@ Router.get("/", (req, res) => {
 Router.get("/face", (req, res) => {
   res.render("Face.html");
 });
+Router.post("/face", (req, res) => {
+  console.log(req.body);
+});
 Router.get("/text", (req, res) => {
   res.render("Text.html");
 });

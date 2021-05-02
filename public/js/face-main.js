@@ -33,19 +33,17 @@ var data = {
     sad: 0,
     surprised: 0,
   },
-  counter: {
-    count: 0,
-  },
+  count: 0,
   emotion: "",
 };
 
-function stop() {
+const stop = async () => {
   const video = document.querySelector("video");
   const mediaStream = video.srcObject;
   const tracks = mediaStream.getTracks();
   tracks[0].stop();
 
-  alert("Count: " + data.counter.count);
+  // alert("Count: " + data.counter.count);
 
   const maxValue = Math.max(...Object.values(data.expression));
   const emotion = Object.keys(data.expression).filter(
@@ -54,10 +52,20 @@ function stop() {
   data.emotion = emotion[0];
 
   alert("Emotion: " + emotion[0]);
-
+  try {
+    const response = await fetch("/face", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+  } catch (error) {
+    console.log(error);
+  }
   sessionStorage.setItem("Face-data", JSON.stringify(data));
   window.location.replace("/");
-}
+};
 
 function screenResize(isScreenSmall) {
   if (isScreenSmall.matches) {
@@ -71,7 +79,7 @@ function screenResize(isScreenSmall) {
 
 startVideo();
 screenResize(isScreenSmall); // Call listener function at run time
-isScreenSmall.addListener(screenResize);
+// isScreenSmall.addListener(screenResize);
 
 video.addEventListener("playing", () => {
   console.log("playing called");
@@ -105,7 +113,7 @@ video.addEventListener("playing", () => {
       const emotion = Object.keys(expressions).filter(
         (item) => expressions[item] === maxValue
       );
-      data.counter.count += 1;
+      data.count += 1;
       data.expression.angry += expressions.angry;
       data.expression.disgusted += expressions.disgusted;
       data.expression.fearful += expressions.fearful;

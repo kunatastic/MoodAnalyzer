@@ -1,3 +1,4 @@
+// mongodb+srv://sentimentuser:rjn72E1qMl003jQN@cluster0.adcn3.mongodb.net/sentimentAnalysis
 // Configurations
 if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
@@ -35,6 +36,7 @@ conn.on("error", console.error.bind(console, "connection error:"));
 // app.use(helmet());
 app.use(morgan("common"));
 app.use(cors());
+app.use(express.json());
 app.use("/", defaultRoutes);
 app.use("/aws", AWSRoutes);
 app.engine("html", ejs.renderFile);
