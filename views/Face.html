@@ -6,22 +6,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Facial Analysis | Mood Analyzer</title>
     <link rel="stylesheet" href="/css/face.css" />
+    <link rel="stylesheet" href="/css/buttons.css" />
   </head>
   <body>
     <nav>Facial Sentiments</nav>
 
+    <header>
+      <p>
+        Just a bit of fun while wondering about using simple and subtle CSS
+        gradients for backgrounds...
+      </p>
+    </header>
+
     <div class="container">
-      kunal
-      <video id="video" height="100%" width="100%" autoplay muted></video>
+      <video id="video" height="450" width="450" autoplay muted></video>
     </div>
 
     <div class="result-container">
       <div id="emotion">Emotion</div>
-      <div id="gender">Gender</div>
-      <div id="age">Age</div>
-      <button onclick="stop()">STOP</button>
     </div>
-    <!-- <script src="/js/face-api.min.js"></script> -->
-    <!-- <script src="/js/face-main.js"></script> -->
+    <button class="close" onclick="stop()">STOP</button>
+    <script src="/js/face-api.min.js"></script>
+    <script src="/js/face-main.js"></script>
   </body>
 </html>

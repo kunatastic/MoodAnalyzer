@@ -6,6 +6,9 @@
 a {
   text-decoration: none;
   color: aliceblue;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 body {

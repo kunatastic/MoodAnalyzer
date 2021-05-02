@@ -62,11 +62,13 @@ function stop() {
 function screenResize(isScreenSmall) {
   if (isScreenSmall.matches) {
     // If media query matches
-    video.style.width = "320px";
-  } else {
     video.style.width = "500px";
+  } else {
+    video.style.width = window.width;
+    video.style.height = window.height;
   }
 }
+
 startVideo();
 screenResize(isScreenSmall); // Call listener function at run time
 isScreenSmall.addListener(screenResize);
@@ -112,11 +114,9 @@ video.addEventListener("playing", () => {
       data.expression.sad += expressions.sad;
       data.expression.surprised += expressions.surprised;
 
-      document.getElementById("age").innerText = `Age - ${interpolatedAge}`;
-      document.getElementById("gender").innerText = `Gender - ${gender}`;
       document.getElementById("emotion").innerText = `Emotion - ${emotion[0]}`;
     }
-  }, 10);
+  }, 1000);
 });
 
 function interpolateAgePredictions(age) {
