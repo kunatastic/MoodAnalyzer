@@ -17,6 +17,7 @@ const mongoose = require("mongoose");
 // Customs Dependencies
 const defaultRoutes = require("./routes/defaultRoutes");
 const AWSRoutes = require("./routes/AWSRoutes");
+const UserRoutes = require("./routes/UserRoute");
 
 // Database connection
 mongoose.connect(process.env.MONGODB_URI, {
@@ -33,14 +34,17 @@ conn.on("disconnected", function () {
 conn.on("error", console.error.bind(console, "connection error:"));
 
 // Middlewares
-// app.use(helmet());
+app.use(helmet());
 app.use(morgan("common"));
 app.use(cors());
 app.use(express.json());
-app.use("/", defaultRoutes);
-app.use("/aws", AWSRoutes);
 app.engine("html", ejs.renderFile);
 app.use(express.static(path.join(__dirname, "/public")));
+
+// Routes
+app.use("/", defaultRoutes);
+app.use("/aws", AWSRoutes);
+app.use("/auth", UserRoutes);
 
 const PORT = process.env.PORT || 5001;
 app.listen(PORT, (err) => {

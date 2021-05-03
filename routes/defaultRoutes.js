@@ -2,7 +2,7 @@ const express = require("express");
 const Router = express.Router();
 const mongoose = require("mongoose");
 const FaceDataModel = require("../models/FaceDataModel");
-const s3 = require("../S3");
+const s3 = require("../middlewares/S3");
 
 Router.get("/", (req, res) => {
   res.render("index.html");
@@ -15,6 +15,7 @@ Router.post("/face", async (req, res) => {
   const instance = await FaceDataModel(req.body);
   const newSentiments = await instance.save();
   console.log(newSentiments);
+  res.redirect("/");
 });
 Router.get("/text", (req, res) => {
   res.render("Text.html");
