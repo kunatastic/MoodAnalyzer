@@ -51,7 +51,7 @@ router.post("/register", checkNotAuthenticated, async (req, res) => {
   }
 });
 
-router.delete("/auth/logout", (req, res) => {
+router.delete("/logout", (req, res) => {
   req.logOut();
   res.redirect("/auth/login");
 });
