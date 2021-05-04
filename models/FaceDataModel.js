@@ -1,3 +1,4 @@
+const Joi = require("joi");
 const mongoose = require("mongoose");
 
 const requiredNum = {
@@ -7,7 +8,7 @@ const requiredNum = {
 
 const FaceDataSchema = new mongoose.Schema(
   {
-    user_id: requiredNum,
+    user_id: { type: String, required: true },
     expression: {
       angry: requiredNum,
       disgusted: requiredNum,
@@ -23,4 +24,25 @@ const FaceDataSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = new mongoose.model("face-Sentiments", FaceDataSchema);
+const Face = mongoose.model("face-Sentiments", FaceDataSchema);
+
+//function to validate user
+function validateFace(user) {
+  const schema = Joi.object({
+    user_id: Joi.string().required(),
+    expression: {
+      angry: Joi.number().required(),
+      disgusted: Joi.number().required(),
+      fearful: Joi.number().required(),
+      happy: Joi.number().required(),
+      neutral: Joi.number().required(),
+      sad: Joi.number().required(),
+      surprised: Joi.number().required(),
+    },
+    count: Joi.number().required(),
+    emotion: Joi.string().required(),
+  });
+  return schema.validate(user);
+}
+
+module.exports = { Face, validateFace };

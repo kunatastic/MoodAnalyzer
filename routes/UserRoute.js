@@ -1,9 +1,6 @@
-const {
-  checkAuthenticated,
-  checkNotAuthenticated,
-} = require("../middlewares/AuthMiddleWare");
+const { checkNotAuthenticated } = require("../middlewares/AuthMiddleWare");
 const bcrypt = require("bcrypt");
-const { User, validate } = require("../models/UserModel");
+const { User, validateUser } = require("../models/UserModel");
 const express = require("express");
 const router = express.Router();
 const passport = require("passport");
@@ -28,7 +25,7 @@ router.post(
 );
 router.post("/register", checkNotAuthenticated, async (req, res) => {
   try {
-    validate(req.body);
+    validateUser(req.body);
   } catch (err) {
     return res.status(400).send(error.details[0].message);
   }

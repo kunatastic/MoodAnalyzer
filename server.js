@@ -1,4 +1,3 @@
-// mongodb+srv://sentimentuser:rjn72E1qMl003jQN@cluster0.adcn3.mongodb.net/sentimentAnalysis
 // Configurations
 if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
@@ -19,7 +18,8 @@ const methodOverride = require("method-override");
 
 // Customs Dependencies
 const defaultRoutes = require("./routes/defaultRoutes");
-const AWSRoutes = require("./routes/AWSRoutes");
+const TextRoutes = require("./routes/TextRoutes");
+const FaceRoutes = require("./routes/FaceRoutes");
 const UserRoutes = require("./routes/UserRoute");
 
 // Database connection
@@ -59,13 +59,13 @@ app.use(methodOverride("_method"));
 
 // Routes
 app.use("/", defaultRoutes);
-app.use("/aws", AWSRoutes);
+app.use("/text", TextRoutes);
+app.use("/face", FaceRoutes);
 app.use("/auth", UserRoutes);
 
+// Listening port
 const PORT = process.env.PORT || 5001;
 app.listen(PORT, (err) => {
-  if (err) {
-    console.log(err);
-  }
+  if (err) return console.log(err);
   console.log(`Listening at http://localhost:${PORT}`);
 });

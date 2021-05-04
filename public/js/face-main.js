@@ -24,7 +24,6 @@ function startVideo() {
 }
 
 var data = {
-  user_id: 1234567890,
   expression: {
     angry: 0,
     disgusted: 0,
@@ -40,7 +39,7 @@ var data = {
 
 const stop = async () => {
   console.log("stop");
-  alert("Count: " + data.count);
+  // alert("Count: " + data.count);
   const video = document.querySelector("video");
   const mediaStream = video.srcObject;
   const tracks = mediaStream.getTracks();
@@ -65,7 +64,7 @@ const stop = async () => {
     console.log(error);
   }
   // // sessionStorage.setItem("Face-data", JSON.stringify(data));
-  window.location.replace("/analysis");
+  window.location.replace("/");
 };
 
 function screenResize(isScreenSmall) {
@@ -106,9 +105,6 @@ video.addEventListener("playing", () => {
     faceapi.draw.drawDetections(canvas, resizedDetections);
     faceapi.draw.drawFaceExpressions(canvas, resizedDetections);
     if (resizedDetections && Object.keys(resizedDetections).length > 0) {
-      const age = resizedDetections.age;
-      const interpolatedAge = interpolateAgePredictions(age);
-      const gender = resizedDetections.gender;
       const expressions = resizedDetections.expressions;
       const maxValue = Math.max(...Object.values(expressions));
       const emotion = Object.keys(expressions).filter(

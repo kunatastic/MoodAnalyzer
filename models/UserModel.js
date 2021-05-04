@@ -1,4 +1,3 @@
-const jwt = require("jsonwebtoken");
 const Joi = require("joi");
 const mongoose = require("mongoose");
 
@@ -25,16 +24,8 @@ const UserSchema = new mongoose.Schema(
       maxlength: 255,
     },
   },
-  {
-    timestamps: true,
-  }
+  { timestamps: true }
 );
-
-//custom method to generate authToken
-UserSchema.methods.generateAuthToken = function () {
-  const token = jwt.sign({ _id: this._id }, process.env.JWT_HIDDEN_KEY);
-  return token;
-};
 
 const User = mongoose.model("User", UserSchema);
 
@@ -48,5 +39,4 @@ function validateUser(user) {
   return schema.validate(user);
 }
 
-exports.User = User;
-exports.validate = validateUser;
+module.exports = { User, validateUser };
