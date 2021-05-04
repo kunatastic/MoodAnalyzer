@@ -19,7 +19,7 @@ function startVideo() {
   navigator.getUserMedia(
     { video: {} },
     (stream) => (video.srcObject = stream),
-    (err) => console.error(err)
+    (err) => err
   );
 }
 
@@ -39,12 +39,12 @@ var data = {
 };
 
 const stop = async () => {
+  console.log("stop");
+  alert("Count: " + data.count);
   const video = document.querySelector("video");
   const mediaStream = video.srcObject;
   const tracks = mediaStream.getTracks();
   tracks[0].stop();
-
-  // alert("Count: " + data.counter.count);
 
   const maxValue = Math.max(...Object.values(data.expression));
   const emotion = Object.keys(data.expression).filter(
@@ -64,8 +64,8 @@ const stop = async () => {
   } catch (error) {
     console.log(error);
   }
-  sessionStorage.setItem("Face-data", JSON.stringify(data));
-  window.location.replace("/");
+  // // sessionStorage.setItem("Face-data", JSON.stringify(data));
+  window.location.replace("/analysis");
 };
 
 function screenResize(isScreenSmall) {

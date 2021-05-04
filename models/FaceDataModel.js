@@ -14,6 +14,8 @@ const FaceDataSchema = new mongoose.Schema(
       fearful: requiredNum,
       happy: requiredNum,
       neutral: requiredNum,
+      sad: requiredNum,
+      surprised: requiredNum,
     },
     count: requiredNum,
     emotion: { type: String, required: true },

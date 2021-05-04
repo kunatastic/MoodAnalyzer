@@ -1,6 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self';  style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'"
+    />
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -11,12 +15,12 @@
   <body>
     <nav>Facial Sentiments</nav>
 
-    <header>
+    <!-- <header>
       <p>
         Just a bit of fun while wondering about using simple and subtle CSS
         gradients for backgrounds...
       </p>
-    </header>
+    </header> -->
 
     <div class="container">
       <video id="video" height="450" width="450" autoplay muted></video>
@@ -25,7 +29,7 @@
     <div class="result-container">
       <div id="emotion">Emotion</div>
     </div>
-    <button class="close" onclick="stop()">STOP</button>
+    <button onclick="stop()" class="close">Hello</button>
     <script src="/js/face-api.min.js"></script>
     <script src="/js/face-main.js"></script>
   </body>
