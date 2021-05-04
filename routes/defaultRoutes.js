@@ -3,7 +3,7 @@ const Router = express.Router();
 const { checkAuthenticated } = require("../middlewares/AuthMiddleWare");
 
 Router.get("/", checkAuthenticated, (req, res) => {
-  res.render("welcome.html");
+  res.render("welcome.ejs", { name: req.user.name });
 });
 
 Router.get("/analysis", checkAuthenticated, (req, res) => {

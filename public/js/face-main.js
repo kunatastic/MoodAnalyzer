@@ -120,6 +120,7 @@ video.addEventListener("playing", () => {
       data.expression.surprised += expressions.surprised;
 
       document.getElementById("emotion").innerText = `Emotion - ${emotion[0]}`;
+      document.getElementById("count").innerText = `Count - ${data.count}`;
     }
   }, 1000);
 });

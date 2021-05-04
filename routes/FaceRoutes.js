@@ -4,7 +4,7 @@ const { Face, validateFace } = require("../models/FaceDataModel");
 const { checkAuthenticated } = require("../middlewares/AuthMiddleWare");
 
 Router.get("/", checkAuthenticated, (req, res) => {
-  res.render("Face.html");
+  res.render("Face.ejs", { name: req.user.name });
 });
 
 Router.post("/", checkAuthenticated, async (req, res) => {
@@ -15,7 +15,7 @@ Router.post("/", checkAuthenticated, async (req, res) => {
   } catch (err) {
     return res.status(400).send(error.details[0].message);
   }
-  const instance = await FaceDataModel(face);
+  const instance = new Face(face);
   const newSentiments = await instance.save();
   if (newSentiments) {
     res.redirect("/");

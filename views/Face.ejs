@@ -13,7 +13,13 @@
     <link rel="stylesheet" href="/css/buttons.css" />
   </head>
   <body>
-    <nav>Facial Sentiments</nav>
+    <nav>
+      SENTIMENT ANALYSIS
+      <form action="/auth/logout?_method=DELETE" method="post">
+        <button type="submit" class="close">Logout</button>
+      </form>
+      Welcome <%= name %> !!!!
+    </nav>
 
     <!-- <header>
       <p>
@@ -27,6 +33,7 @@
     </div>
 
     <div class="result-container">
+      <div id="count">Count</div>
       <div id="emotion">Emotion</div>
     </div>
     <button onclick="stop()" class="close">STOP</button>

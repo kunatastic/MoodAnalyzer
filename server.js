@@ -1,8 +1,3 @@
-// Configurations
-if (process.env.NODE_ENV !== "production") {
-  require("dotenv").config();
-}
-
 // Dependenices
 const express = require("express");
 const cors = require("cors");
@@ -15,6 +10,12 @@ const passport = require("passport");
 const flash = require("express-flash");
 const session = require("express-session");
 const methodOverride = require("method-override");
+
+// Configurations
+if (process.env.NODE_ENV !== "production") {
+  require("dotenv").config();
+  app.use(morgan("common"));
+}
 
 // Customs Dependencies
 const defaultRoutes = require("./routes/defaultRoutes");
@@ -39,7 +40,6 @@ conn.on("disconnected", function () {
 conn.on("error", console.error.bind(console, "connection error:"));
 
 // Middlewares
-app.use(morgan("common"));
 app.use(cors());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
