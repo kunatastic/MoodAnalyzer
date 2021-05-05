@@ -11,9 +11,9 @@ initializePassport(passport);
 router.get("/login", checkNotAuthenticated, (req, res) => {
   res.render("login.ejs");
 });
-// router.get("/register", checkNotAuthenticated, (req, res) => {
-//   res.render("register.ejs");
-// });
+router.get("/register", checkNotAuthenticated, (req, res) => {
+  res.render("register.ejs");
+});
 router.post(
   "/login",
   checkNotAuthenticated,
@@ -26,14 +26,16 @@ router.post(
 router.post("/register", checkNotAuthenticated, async (req, res) => {
   var newUserInfo = {
     name: req.body.name,
-    password: req.body.regpassword,
-    email: req.body.regemail,
+    password: req.body.password,
+    email: req.body.email,
   };
   try {
     validateUser(newUserInfo);
   } catch (err) {
     return res.status(400).send(error.details[0].message);
   }
+
+  console.log(newUserInfo);
   //find an existing user
   try {
     let user = await User.findOne({ email: newUserInfo.email });
@@ -44,7 +46,8 @@ router.post("/register", checkNotAuthenticated, async (req, res) => {
     res.redirect("/auth/login");
   } catch (error) {
     console.log(error);
-    res.send(error);
+    res.redirect("/auth/register");
+    // res.send(error);
   }
 });
 
