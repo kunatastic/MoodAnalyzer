@@ -41,8 +41,6 @@ conn.on("error", console.error.bind(console, "connection error:"));
 app.use(cors());
 app.use(flash());
 app.use(express.json());
-app.use(passport.initialize());
-app.use(passport.session());
 app.use(methodOverride("_method"));
 app.engine("html", ejs.renderFile);
 app.use(express.urlencoded({ extended: false }));
@@ -54,6 +52,8 @@ app.use(
     saveUninitialized: false,
   })
 );
+app.use(passport.initialize());
+app.use(passport.session());
 
 // Routes
 app.use("/", defaultRoutes);

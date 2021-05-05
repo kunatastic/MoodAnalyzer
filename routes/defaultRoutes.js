@@ -4,6 +4,7 @@ const { checkAuthenticated } = require("../middlewares/AuthMiddleWare");
 const { Face } = require("../models/FaceDataModel");
 
 Router.get("/", checkAuthenticated, (req, res) => {
+  // console.log(req);
   res.render("welcome.ejs", { name: req.user.name });
 });
 

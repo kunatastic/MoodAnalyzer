@@ -5,7 +5,7 @@ const s3 = require("../middlewares/S3");
 const { checkAuthenticated } = require("../middlewares/AuthMiddleWare");
 
 Router.get("/", checkAuthenticated, (req, res) => {
-  res.render("text.html");
+  res.render("text.ejs", { name: req.user.name });
 });
 
 Router.post("/", checkAuthenticated, async (req, res) => {
@@ -13,15 +13,20 @@ Router.post("/", checkAuthenticated, async (req, res) => {
     user_id: req.user._id,
     text: req.body.text,
   };
-  console.log(req.body);
-  params = { Bucket: "usent", Key: "heroku.txt", Body: req.body.text };
-  // s3.putObject(params, function (err, data) {
-  //   if (err) {
-  //     console.log(err);
-  //   } else {
-  //     console.log(`File uploaded successfully. ${data.Location}`);
-  //   }
-  // });
+  params = {
+    Bucket: "usent",
+    Key: `senti-${Math.floor(Math.random() * 1000)}.txt`,
+    Body: req.body.text,
+  };
+  console.log(params.Key);
+  s3.putObject(params, function (err, data) {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(`File uploaded successfully. ${data.Location}`);
+    }
+  });
+  res.redirect("/");
 });
 
 Router.get("/raw", async (req, res) => {

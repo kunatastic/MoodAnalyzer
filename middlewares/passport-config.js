@@ -13,7 +13,7 @@ const initialize = async (passport) => {
 
     try {
       if (await bcrypt.compare(password, user.password)) {
-        console.log("user logged in", user);
+        // console.log("user logged in", user);
         return done(null, user);
       } else {
         return done(null, false, { message: "Password incorrect" });
@@ -25,12 +25,12 @@ const initialize = async (passport) => {
 
   passport.use(new LocalStrategy({ usernameField: "email" }, authenticateUser));
   passport.serializeUser((user, done) => {
-    console.log(user);
+    // console.log(user);
     done(null, user._id);
   });
   passport.deserializeUser(async (id, done) => {
     const user = await User.findById({ _id: id });
-    console.log(user);
+    // console.log(user);
     return done(null, user);
   });
 };

@@ -1,0 +1,78 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+a {
+  text-decoration: none;
+  color: aliceblue;
+}
+
+body {
+  width: 100%;
+  padding: 1rem;
+  font-family: Avenir, sans-serif;
+  font-size: 112.5%;
+  color: rgb(211, 219, 236);
+  background-color: black;
+  background-image: radial-gradient(
+      rgba(255, 0, 0, 0.3),
+      rgba(255, 0, 0, 0) 40vw
+    ),
+    radial-gradient(rgba(0, 128, 0, 0.3), rgba(0, 128, 0, 0) 40vw),
+    radial-gradient(rgba(0, 0, 255, 0.3), rgba(0, 0, 255, 0) 40vw),
+    radial-gradient(rgba(255, 255, 0, 0.3), rgba(255, 255, 0, 0) 40vw),
+    radial-gradient(rgba(255, 0, 0, 0.3), rgba(255, 0, 0, 0) 40vw);
+  background-position: -40vw 14rem, 50% 10rem, 60vw 14rem,
+    -10vw calc(14rem + 20vw), 30vw calc(14rem + 20vw);
+  background-size: 80vw 80vw;
+  background-repeat: no-repeat;
+}
+
+nav {
+  /* position: fixed; */
+  top: 0;
+  right: 0;
+  left: 0;
+  padding: 1.5rem 1rem;
+  border-top: 4px solid #c080c0;
+}
+
+header {
+  max-width: 600px;
+  margin: 2vh auto;
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: 900;
+  line-height: 1.1;
+}
+h1 + p {
+  margin-top: 1rem;
+}
+
+/* .container {
+  background-color: orange;
+  height: 50vh;
+  width: 68vh;
+  margin: auto;
+} */
+
+.result-container {
+  /* padding: 1em; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+canvas {
+  position: absolute;
+}
+.container {
+  display: flex;
+  /* background: orange; */
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
