@@ -8,7 +8,11 @@ Router.get("/", checkAuthenticated, (req, res) => {
   res.render("text.html");
 });
 
-Router.post("/", async (req, res) => {
+Router.post("/", checkAuthenticated, async (req, res) => {
+  const newData = {
+    user_id: req.user._id,
+    text: req.body.text,
+  };
   console.log(req.body);
   params = { Bucket: "usent", Key: "heroku.txt", Body: req.body.text };
   // s3.putObject(params, function (err, data) {
