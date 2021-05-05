@@ -11,9 +11,9 @@ initializePassport(passport);
 router.get("/login", checkNotAuthenticated, (req, res) => {
   res.render("login.ejs");
 });
-router.get("/register", checkNotAuthenticated, (req, res) => {
-  res.render("register.ejs");
-});
+// router.get("/register", checkNotAuthenticated, (req, res) => {
+//   res.render("register.ejs");
+// });
 router.post(
   "/login",
   checkNotAuthenticated,
@@ -24,27 +24,27 @@ router.post(
   })
 );
 router.post("/register", checkNotAuthenticated, async (req, res) => {
+  var newUserInfo = {
+    name: req.body.name,
+    password: req.body.regpassword,
+    email: req.body.regemail,
+  };
   try {
-    validateUser(req.body);
+    validateUser(newUserInfo);
   } catch (err) {
     return res.status(400).send(error.details[0].message);
   }
-  console.log(req.body);
   //find an existing user
   try {
-    let user = await User.findOne({ email: req.body.email });
+    let user = await User.findOne({ email: newUserInfo.email });
     if (user) return res.status(400).send("User already registered.");
 
-    user = new User({
-      name: req.body.name,
-      password: req.body.password,
-      email: req.body.email,
-    });
-    user.password = await bcrypt.hash(user.password, 10);
-    await user.save();
+    newUserInfo.password = await bcrypt.hash(newUserInfo.password, 10);
+    const newUser = await new User(newUserInfo).save();
     res.redirect("/auth/login");
-  } catch {
-    res.redirect("/auth/register");
+  } catch (error) {
+    console.log(error);
+    res.send(error);
   }
 });
 

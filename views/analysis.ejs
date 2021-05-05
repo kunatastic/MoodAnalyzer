@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Analysis | Mood Analyzer</title>
+    <link rel="stylesheet" href="/css/analysis-face.css" />
+  </head>
+  <body>
+    <h1>All the face data goes here</h1>
+    <table class="table table-inverse">
+      <thead>
+        <tr>
+          <th>Time</th>
+          <th>Emotion</th>
+          <th>Score</th>
+          <th>Expression</th>
+
+          <!-- <th>Angry</th>
+          <th>Disgusted</th>
+          <th>Fearful</th>
+          <th>Happy</th>
+          <th>Neutral</th>
+          <th>Sad</th>
+          <th>Surprised</th> -->
+        </tr>
+      </thead>
+
+      <tbody>
+        <% for(var i=0; i < sentiments.length; i++) { %>
+        <tr>
+          <td><%= sentiments[i].createdAt %></td>
+          <td><%= sentiments[i].emotion %></td>
+          <td><%= 20 %></td>
+          <!-- <td><%= sentiments[i].expression.angry %></td>
+          <td><%= sentiments[i].expression.disgusted %></td>
+          <td><%= sentiments[i].expression.fearful %></td>
+          <td><%= sentiments[i].expression.happy %></td>
+          <td><%= sentiments[i].expression.neutral %></td>
+          <td><%= sentiments[i].expression.sad %></td>
+          <td><%= sentiments[i].expression.surprised %></td> -->
+          <td>
+            Angry-> <%=sentiments[i].expression.angry.toString().slice(0,6)%><br />
+            Disgusted->
+            <%=sentiments[i].expression.disgusted.toString().slice(0,6)%><br />
+            Fearful->
+            <%=sentiments[i].expression.fearful.toString().slice(0,6)%><br />
+            Happy-> <%=sentiments[i].expression.happy.toString().slice(0,6)%><br />
+            Neutral->
+            <%=sentiments[i].expression.neutral.toString().slice(0,6)%><br />
+            Sad-> <%=sentiments[i].expression.sad.toString().slice(0,6)%><br />
+            Surprised->
+            <%=sentiments[i].expression.surprised.toString().slice(0,6)%><br />
+          </td>
+        </tr>
+        <% } %>
+      </tbody>
+    </table>
+  </body>
+</html>

@@ -5,7 +5,7 @@ const s3 = require("../middlewares/S3");
 const { checkAuthenticated } = require("../middlewares/AuthMiddleWare");
 
 Router.get("/", checkAuthenticated, (req, res) => {
-  res.render("Text.html");
+  res.render("text.html");
 });
 
 Router.post("/", async (req, res) => {

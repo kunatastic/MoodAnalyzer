@@ -1,16 +1,86 @@
-<h1>Login</h1>
-<% if (messages.error){ %> <%= messages.error %> <% } %>
-<form action="/auth/login" method="POST">
-  <div>
-    <label for="email">email</label>
-    <input type="email" id="email" name="email" required />
-  </div>
-  <div>
-    <label for="password">password</label>
-    <input type="password" id="password" name="password" required />
-  </div>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login | Mood Analyzer</title>
+    <link rel="stylesheet" href="/css/login.css" />
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <div class="materialContainer">
+      <div class="box">
+        <div class="title">LOGIN</div>
+        <form action="/auth/login" method="POST">
+          <div class="input">
+            <label for="email">Email: </label>
+            <input type="email" name="email" id="email" autocomplete="off" />
+            <span class="spin"></span>
+          </div>
 
-  <button type="submit">login</button>
-</form>
+          <div class="input">
+            <label for="password">Password: </label>
+            <input
+              type="password"
+              name="password"
+              id="password"
+              autocomplete="off"
+            />
+            <span class="spin"></span>
+          </div>
 
-<a href="/auth/register">Register</a>
+          <div class="button login">
+            <button type="submit">
+              <span>GO</span> <i class="fa fa-check"></i>
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <div class="overbox">
+        <div class="material-button alt-2"><span class="shape"></span></div>
+
+        <div class="title">REGISTER</div>
+        <form action="/auth/register" method="POST">
+          <div class="input">
+            <label for="name">Name: </label>
+            <input type="text" name="name" id="name" autocomplete="off" />
+            <span class="spin"></span>
+          </div>
+
+          <div class="input">
+            <label for="regemail">Email: </label>
+            <input
+              type="email"
+              name="regemail"
+              id="regemail"
+              autocomplete="off"
+            />
+            <span class="spin"></span>
+          </div>
+
+          <div class="input">
+            <label for="regpassword">Password:</label>
+            <input
+              type="password"
+              name="regpassword"
+              id="regpassword"
+              autocomplete="off"
+            />
+            <span class="spin"></span>
+          </div>
+
+          <div class="button">
+            <button><span>NEXT</span></button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <script src="/js/login-main.js"></script>
+  </body>
+</html>
