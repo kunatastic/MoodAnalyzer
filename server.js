@@ -24,28 +24,29 @@ const FaceRoutes = require("./routes/FaceRoutes");
 const UserRoutes = require("./routes/UserRoute");
 
 // Database connection
-mongoose.set("useFindAndModify", false);
-mongoose.set("useCreateIndex", true);
 mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
+  useCreateIndex: true,
+  useFindAndModify: false,
 });
 var conn = mongoose.connection;
-conn.on("connected", function () {
-  console.log("DB connected!!");
-});
-conn.on("disconnected", function () {
-  console.log("database is disconnected successfully");
-});
+conn.on("connected", () => console.log("DB connected!!"));
+conn.on("disconnected", () =>
+  console.log("database is disconnected successfully")
+);
 conn.on("error", console.error.bind(console, "connection error:"));
 
 // Middlewares
 app.use(cors());
-app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
-app.engine("html", ejs.renderFile);
-app.use(express.static(path.join(__dirname, "/public")));
 app.use(flash());
+app.use(express.json());
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(methodOverride("_method"));
+app.engine("html", ejs.renderFile);
+app.use(express.urlencoded({ extended: false }));
+app.use(express.static(path.join(__dirname, "/public")));
 app.use(
   session({
     secret: process.env.ACCESS_TOKEN_SECRET,
@@ -53,9 +54,6 @@ app.use(
     saveUninitialized: false,
   })
 );
-app.use(passport.initialize());
-app.use(passport.session());
-app.use(methodOverride("_method"));
 
 // Routes
 app.use("/", defaultRoutes);
