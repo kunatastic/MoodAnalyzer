@@ -3,29 +3,51 @@ const Router = express.Router();
 const fetch = require("node-fetch");
 const s3 = require("../middlewares/S3");
 const { checkAuthenticated } = require("../middlewares/AuthMiddleWare");
+const { Text, validateText } = require("../models/TextDataModel");
 
 Router.get("/", checkAuthenticated, (req, res) => {
   res.render("text.ejs", { name: req.user.name });
 });
 
+const random = (length = 8) => {
+  return Math.random().toString(16).substr(2, length);
+};
+
 Router.post("/", checkAuthenticated, async (req, res) => {
-  const newData = {
+  randString = random(14);
+
+  const newTextData = {
     user_id: req.user._id,
     text: req.body.text,
+    filename: `senti-${randString}.txt`,
   };
+
   params = {
-    Bucket: "usent",
-    Key: `senti-${Math.floor(Math.random() * 1000)}.txt`,
+    Bucket: process.env.BUCKET_NAME,
+    Key: `senti-${randString}.txt`,
     Body: req.body.text,
   };
-  console.log(params.Key);
-  s3.putObject(params, function (err, data) {
-    if (err) {
-      console.log(err);
-    } else {
-      console.log(`File uploaded successfully. ${data.Location}`);
-    }
-  });
+
+  try {
+    validateText(newTextData);
+  } catch (err) {
+    return res.status(400).send(error.details[0].message);
+  }
+
+  console.log(params);
+  try {
+    // s3.putObject(params, function (err, data) {
+    //   if (err) {
+    //     console.log(err);
+    //   } else {
+    //     console.log(`File uploaded successfully. ${data.Location}`);
+    //   }
+    // });
+    const newText = new Text(newTextData).save();
+  } catch (e) {
+    console.log(error);
+    return res.status(400).send(error.details[0].message);
+  }
   res.redirect("/");
 });
 
