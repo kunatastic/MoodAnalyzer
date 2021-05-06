@@ -36,13 +36,15 @@ Router.post("/", checkAuthenticated, async (req, res) => {
 
   console.log(params);
   try {
-    // s3.putObject(params, function (err, data) {
-    //   if (err) {
-    //     console.log(err);
-    //   } else {
-    //     console.log(`File uploaded successfully. ${data.Location}`);
-    //   }
-    // });
+    if (process.env.AWS_SEND) {
+      s3.putObject(params, function (err, data) {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log(`File uploaded successfully. ${data.Location}`);
+        }
+      });
+    }
     const newText = new Text(newTextData).save();
   } catch (e) {
     console.log(error);
