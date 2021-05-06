@@ -20,6 +20,7 @@ Router.post("/", checkAuthenticated, async (req, res) => {
     user_id: req.user._id,
     text: req.body.text,
     filename: `senti-${randString}.txt`,
+    sent: process.env.AWS_SEND,
   };
 
   params = {
@@ -34,9 +35,9 @@ Router.post("/", checkAuthenticated, async (req, res) => {
     return res.status(400).send(error.details[0].message);
   }
 
-  console.log(params);
+  // console.log(params);
   try {
-    if (process.env.AWS_SEND) {
+    if (process.env.AWS_SEND === "true") {
       s3.putObject(params, function (err, data) {
         if (err) {
           console.log(err);
@@ -45,7 +46,8 @@ Router.post("/", checkAuthenticated, async (req, res) => {
         }
       });
     }
-    const newText = new Text(newTextData).save();
+    const newText = await new Text(newTextData).save();
+    console.log(newText);
   } catch (e) {
     console.log(error);
     return res.status(400).send(error.details[0].message);
