@@ -47,7 +47,6 @@ Router.post("/", checkAuthenticated, async (req, res) => {
       });
     }
     const newText = await new Text(newTextData).save();
-    console.log(newText);
   } catch (e) {
     console.log(error);
     return res.status(400).send(error.details[0].message);
