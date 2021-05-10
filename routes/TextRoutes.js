@@ -28,15 +28,6 @@ Router.post("/", checkAuthenticated, async (req, res) => {
     Key: `senti-${randString}.txt`,
     Body: req.body.text,
   };
-
-  // console.log(process.env.AWS_BUCKET_NAME);
-
-  try {
-    validateText(newTextData);
-  } catch (err) {
-    console.log(err);
-  }
-
   // console.log(params);
   try {
     if (process.env.AWS_SEND === "true") {
@@ -76,24 +67,31 @@ Router.post("/", checkAuthenticated, async (req, res) => {
       });
       const theData = await sendData.json();
       console.log(theData);
+      const theNewData = {
+        Sentiment: theData.Sentiment,
+        SentimentScore: {
+          Positive: theData.SentimentScore.Positive,
+          Negative: theData.SentimentScore.Negative,
+          Neutral: theData.SentimentScore.Neutral,
+          Mixed: theData.SentimentScore.Mixed,
+        },
+      };
+      newTextData["AWS"] = theNewData;
+      console.log(newTextData);
+    }
+
+    try {
+      validateText(newTextData);
+    } catch (err) {
+      return res.status(403);
     }
     const newText = await new Text(newTextData).save();
-    console.log(randString);
+    console.log(newText);
   } catch (error) {
     console.log(error);
     return res.status(400).send(error.details[0].message);
   }
   res.redirect("/");
 });
-
-// Router.get("/raw", async (req, res) => {
-//   try {
-//     const data = await fetch(process.env.AMAZON_URI);
-//     const values = await data.json();
-//     res.json(values);
-//   } catch (e) {
-//     console.log(e);
-//   }
-// });
 
 module.exports = Router;
