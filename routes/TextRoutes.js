@@ -24,15 +24,17 @@ Router.post("/", checkAuthenticated, async (req, res) => {
   };
 
   params = {
-    Bucket: process.env.BUCKET_NAME,
+    Bucket: process.env.AWS_BUCKET_NAME,
     Key: `senti-${randString}.txt`,
     Body: req.body.text,
   };
 
+  // console.log(process.env.AWS_BUCKET_NAME);
+
   try {
     validateText(newTextData);
   } catch (err) {
-    return res.status(400).send(error.details[0].message);
+    console.log(err);
   }
 
   // console.log(params);
@@ -45,23 +47,53 @@ Router.post("/", checkAuthenticated, async (req, res) => {
           console.log(`File uploaded successfully. ${data.Location}`);
         }
       });
+
+      const payload = {
+        Records: [
+          {
+            s3: {
+              configurationId: process.env.AWS_CONFIRURATION_ID,
+              bucket: {
+                name: process.env.AWS_BUCKET_NAME,
+                ownerIdentity: {
+                  principalId: process.env.AWS_PRINCIPAL_ID,
+                },
+                arn: process.env.AWS_ARN,
+              },
+              object: {
+                key: `senti-${randString}.txt`,
+              },
+            },
+          },
+        ],
+      };
+      const sendData = await fetch(process.env.AWS, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+      const theData = await sendData.json();
+      console.log(theData);
     }
     const newText = await new Text(newTextData).save();
-  } catch (e) {
+    console.log(randString);
+  } catch (error) {
     console.log(error);
     return res.status(400).send(error.details[0].message);
   }
   res.redirect("/");
 });
 
-Router.get("/raw", async (req, res) => {
-  try {
-    const data = await fetch(process.env.AMAZON_URI);
-    const values = await data.json();
-    res.json(values);
-  } catch (e) {
-    console.log(e);
-  }
-});
+// Router.get("/raw", async (req, res) => {
+//   try {
+//     const data = await fetch(process.env.AMAZON_URI);
+//     const values = await data.json();
+//     res.json(values);
+//   } catch (e) {
+//     console.log(e);
+//   }
+// });
 
 module.exports = Router;

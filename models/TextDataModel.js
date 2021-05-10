@@ -23,5 +23,15 @@ function validateText(user) {
   });
   return schema.validate(user);
 }
+//function to validate user
+function validateText(user) {
+  const schema = Joi.object({
+    user_id: Joi.string().required(),
+    text: Joi.string().required(),
+    filename: Joi.string().required(),
+    sent: Joi.string().required(),
+  });
+  return schema.validate(user);
+}
 
 module.exports = { Text, validateText };
