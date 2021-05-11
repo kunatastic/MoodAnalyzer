@@ -17,6 +17,8 @@ Router.post("/", checkAuthenticated, async (req, res) => {
   }
   const instance = new Face(face);
   const newSentiments = await instance.save();
+
+  console.log(newSentiments);
   if (newSentiments) {
     res.redirect("/");
   }

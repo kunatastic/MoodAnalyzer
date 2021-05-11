@@ -18,5 +18,11 @@ Router.get("/analysis", checkAuthenticated, async (req, res) => {
   // console.log(data);
   res.render("analysis.ejs", { name: req.user.name, info: data });
 });
+Router.get("/analysis/raw", checkAuthenticated, async (req, res) => {
+  const FaceSentiments = await Face.find({ user_id: req.user._id });
+  const TextSentiments = await Text.find({ user_id: req.user._id });
+  const data = main(FaceSentiments, TextSentiments);
+  res.json({ data });
+});
 
 module.exports = Router;

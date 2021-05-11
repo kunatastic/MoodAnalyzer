@@ -59,7 +59,7 @@ function main(allFace, allText) {
   else if (final.sentimentScore >= 0.605 && final.sentimentScore < 0.715)
     final.verdict = "NEUTRAL";
   else final.verdict = "POSITIVE";
-
+  console.log(final);
   return final;
 }
 

@@ -14,7 +14,7 @@ const methodOverride = require("method-override");
 // Configurations
 if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
-  app.use(morgan("common"));
+  // app.use(morgan("common"));
 }
 
 // Customs Dependencies
