@@ -25,6 +25,8 @@ function main(allFace, allText) {
     final.sentiments.sad += allFace[i].expression.sad / count;
     final.sentiments.surprised += allFace[i].expression.surprised / count;
   }
+
+  console.log(final);
   // add all the text data
   for (var i = 0; i < allText.length; i++) {
     final.sentiments.happy +=
@@ -59,7 +61,6 @@ function main(allFace, allText) {
   else if (final.sentimentScore >= 0.605 && final.sentimentScore < 0.715)
     final.verdict = "NEUTRAL";
   else final.verdict = "POSITIVE";
-  console.log(final);
   return final;
 }
 

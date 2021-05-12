@@ -92,6 +92,7 @@ Router.post("/", checkAuthenticated, async (req, res) => {
     return res.status(400).send(error.details[0].message);
   }
   res.redirect("/");
+  // res.json({ sentiment: newText.AWS.Sentiment });
 });
 
 module.exports = Router;
