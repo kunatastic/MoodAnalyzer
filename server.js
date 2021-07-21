@@ -19,7 +19,6 @@ if (process.env.NODE_ENV !== "production") {
 
 // Customs Dependencies
 const defaultRoutes = require("./routes/defaultRoutes");
-const TextRoutes = require("./routes/TextRoutes");
 const FaceRoutes = require("./routes/FaceRoutes");
 const UserRoutes = require("./routes/UserRoute");
 
@@ -57,7 +56,6 @@ app.use(passport.session());
 
 // Routes
 app.use("/", defaultRoutes);
-app.use("/text", TextRoutes);
 app.use("/face", FaceRoutes);
 app.use("/auth", UserRoutes);
 
